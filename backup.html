@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahendra Murari | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: Title;
+            src: url("Poppins-Black.ttf");
+        }
+
+        @font-face {
+            font-family: Med;
+            src: url("Poppins-Medium.ttf");
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+            transition: color 1.5s ease-in-out;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .video-visible {
+            opacity: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            font-family: "Med";
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 90%;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem 3rem;
+            background: rgba(255, 255, 255, 0.233);
+            color: white;
+            right: 8%;
+            font-family: "Title";
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50px;
+            backdrop-filter: blur(25px);
+            border-width: 1px;
+            border-style: solid;
+            border-color: #f5f5f5a9;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 0 10px rgba(201, 201, 201, 0.2), 
+                        0 0 20px rgba(148, 148, 148, 0.4),
+                        inset 0 0 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease, box-shadow 0.3s ease;
+            z-index: 9999;
+        }
+
+        nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: black;
+            transform: translateY(-3px);
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        nav ul li a:active {
+            background-color: #525252;
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        .project a, .contact a, .contact-button {
+            background-color: #494949;
+            padding: 12px 18px;
+            border-radius: 12px;
+            width: auto;
+            transition: all 0.5s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: #e7e7e7;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .project a:hover, .contact a:hover, .contact-button:hover {
+            background-color: #e7e7e7;
+            color: black;
+            transform: translateY(-3px);
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .project a:active, .contact a:active, .contact-button:active {
+            background-color: #525252;
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        /* Specific styles for each section */
+        .content-home, .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+            position: static;
+            top: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            width: 80%;
+            left:11%;
+            max-width: 900px;
+            text-align: left;
+            line-height: 1.6;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            color: rgb(255, 255, 255);
+            margin: 20px auto;
+        }
+        .content-home.active, .content-about.active, .content-education.active, .content-skills.active, .content-projects.active, .content-contact.active {
+    opacity: 1;
+    visibility: visible;
+    display: block; /* Show the active section */
+}
+
+        .content-home {
+            color: rgb(255, 255, 255);
+            top: 500px;
+
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+                border-radius: 25px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .content-home, .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+                width: 90%;
+                top: 20%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul li a {
+                padding: 8px;
+            }
+
+            .project a, .contact a, .contact-button {
+                padding: 10px 15px;
+            }
+
+            .content-home, .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+                top: 30%;
+                left: 10px;
+                transform: translateX(0);
+            }
+        }
+    </style>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = link.getAttribute('href').substring(1);
+            showSection(sectionId);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+    });
+
+    showSection('home'); // Show home section by default
+
+    window.addEventListener('scroll', handleScroll);
+});
+// Get all links on the page
+const links = document.querySelectorAll('a');
+
+// Add an event listener to each link
+links.forEach(link => {
+    link.addEventListener('click', (e) => {
+        // Prevent the default link behavior
+        e.preventDefault();
+
+        // Get the href attribute of the link
+        const href = link.getAttribute('href');
+
+        // Use the history API to push a new state
+        history.pushState({}, '', href);
+
+        // Load the new page
+        loadPage(href);
+    });
+});
+// Set scrollRestoration to 'manual' to prevent the browser from restoring the scroll position
+window.history.scrollRestoration = 'manual';
+// Function to load a new page
+function loadPage(href) {
+    // Use the fetch API to load the new page
+    fetch(href)
+        .then(response => response.text())
+        .then(html => {
+            // Replace the current page content with the new page content
+            document.body.innerHTML = html;
+
+            // Scroll to the top of the new page
+            window.scrollTo(0, 0);
+        });
+}
+
+        function handleScroll() {
+            const homeSection = document.getElementById('home');
+            const scrollPosition = window.scrollY;
+            const maxTop = 100;
+            const maxWidth = 1200;
+
+            if (scrollPosition > 0) {
+                const calculatedTop = Math.max(maxTop, 500 - scrollPosition * 0.5);
+                const calculatedWidth = Math.min(maxWidth, 900 + scrollPosition * 1.5);
+                homeSection.style.top = `${calculatedTop}px`;
+                homeSection.style.maxWidth = `${calculatedWidth}px`;
+            } else {
+                homeSection.style.top = '500px';
+                homeSection.style.maxWidth = '900px';
+            }
+        }
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content > div');
+
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.visibility = 'hidden';
+            });
+
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.opacity = '1';
+                selectedSection.style.visibility = 'visible';
+            }
+
+            const homeVideo = document.querySelector('.home-video');
+            const otherVideo = document.querySelector('.other-video');
+
+            if (sectionId === 'home') {
+                homeVideo.classList.add('video-visible');
+                otherVideo.classList.remove('video-visible');
+                homeVideo.play();
+            } else {
+                homeVideo.classList.remove('video-visible');
+                otherVideo.classList.add('video-visible');
+                homeVideo.pause();
+            }
+
+            // Add this line to scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', () => {
+            const body = document.body;
+            body.style.opacity = '1';
+
+            const homeVideo = document.querySelector('.home-video');
+            homeVideo.play();
+        });
+        // Function to scroll back to top
+function scrollToTop() {
+    window.scroll(0, 0);
+}
+
+// Add an event listener to the window to listen for scroll events
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+        scrollToTop();
+    }
+});
+    </script>
+</head>
+<body>
+    <video loop muted class="background-video home-video video-visible">
+        <source src="fireballloop.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <video autoplay loop muted class="background-video other-video">
+        <source src="spacetravel.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="content">
+        <nav>
+            <h1>Mahendra Murari</h1>
+            <ul>
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+                <li><a href="#skills"><i class="fas fa-lightbulb"></i> Skills</a></li>
+                <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>  
+        
+        <div id="home" class="content-home">
+            <h2>Welcome to My Portfolio</h2>
+            <p>Hello! I’m Mahendra Murari, a Master’s graduate in Computer Science with an unwavering passion for front-end development. I specialize in designing and building visually stunning, responsive, and user-friendly web pages that captivate and engage users.</p>
+        </div>
+        
+        <div id="about" class="content-about">
+            <h2>About Me</h2>
+            <p>Hello! I’m Mahendra Murari, a Master’s graduate in Computer Science with an unwavering passion for front-end development. I specialize in designing and building visually stunning, responsive, and user-friendly web pages that captivate and engage users.</p>
+        </div>
+        
+        <div id="education" class="content-education">
+            <h2>Education :</h2>
+            <h3>University of Bridgeport, CT, USA - 2024</h3>
+            <h4>Master of Science in Computer Science</h4>
+            <p>Relevant Coursework: Web based applicationDevelopment, Analysis of Algorithms, Python for Data Science, Object-Oriented Programming with Design Patterns, Deep Learning, Natural Language Processing (NLP), and Ethical Hacking.</p>
+            <br></br>
+            <h3>Gudlavalleru Engineering College, Andhra Pradesh, India - 2023</h3>
+            <h4>Bachelor of Technology in Computer Science and Engineering</h4>
+            <p>Relevant Coursework: Computer Graphics, C, Python, Data Structures, OOP Through Java, DBMS, Data Mining, Project Management</p>
+        </div>
+        
+        <div id="skills" class="content-skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skills-box">
+                    <h3>Technical Skills</h3>
+                    <h4>Frontend Web Development:</h4>
+                    <p>Languages: HTML5, CSS3, JavaScript (ES6+)</p>
+                    <p>Frameworks & Libraries: Basics of React.js (or Angular/Vue.js if learned)</p>
+                    <p>Styling: CSS Flexbox, Grid, Bootstrap, Tailwind CSS (if practiced)</p>
+                    <p>Responsive Design: Media queries, mobile-first development</p>
+                    <p>Version Control: Basic Git and GitHub (commits, branching, pull requests)</p>
+                    <p>APIs: Basic understanding of RESTful APIs and fetching data (e.g., using Fetch API or Axios)</p>
+                    <p>Debugging: Browser Developer Tools (Chrome DevTools)</p>
+                    <p>Basic Testing: Familiarity with testing concepts (e.g., manual testing, basic Jest)</p>
+                </div>
+                <div class="skills-box">
+                    <h3>UI/UX Development:</h3>
+                    <p>Design Tools: Figma (or Adobe XD/Sketch for wireframing and prototyping)</p>
+                    <p>Wireframing: Creating basic layouts and user flows</p>
+                    <p>Prototyping: Building interactive prototypes for user feedback</p>
+                    <p>Design Principles: Understanding of typography, color theory, and visual hierarchy</p>
+                    <p>User Research: Basic knowledge of user personas and usability testing</p>
+                </div>
+                <div class="skills-box">
+                    <h3>Soft Skills</h3>
+                    <p>Eagerness to learn and adapt to new technologies</p>
+                    <p>Strong problem-solving and logical thinking</p>
+                    <p>Attention to detail in design and code</p>
+                    <p>Good communication and teamwork skills</p>
+                    <p>Time management and ability to meet deadlines</p>
+                    <p>Creativity and a user-focused mindset</p>
+                </div>
+                <div class="skills-box">
+                    <h3>Tools & Technologies</h3>
+                    <p>Code Editors: VS Code, Sublime Text</p>
+                    <p>Version Control: Git, GitHub</p>
+                    <p>Design Tools: Figma, Adobe XD, Canva (for basic designs)</p>
+                    <p>Collaboration Tools: Slack, Trello, Notion</p>
+                </div>
+                <div class="skills-box">
+                    <h3>Projects & Learning</h3>
+                    <p>Built responsive websites using HTML, CSS, and JavaScript</p>
+                    <p>Created simple React.js components (e.g., to-do list, weather app)</p>
+                    <p>Designed wireframes and prototypes for personal or academic projects</p>
+                    <p>Practiced debugging and improving website performance</p>
+                    <p>Contributed to open-source projects or collaborated on GitHub</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="projects" class="content-projects">
+            <h2>Projects and Internships</h2>
+            <div class="project">
+                <h3>Portfolio Website</h3>
+                <p>A responsive portfolio showcasing my work.</p>
+                <a href="#">View Project</a>
+            </div>
+            <div class="project">
+                <h3>ERP Dashboard</h3>
+                <p>Developed a real-time analytics dashboard for ERP data visualization.</p>
+                <a href="#">View Project</a>
+            </div>
+            <div class="project">
+                <h3>ERP Dashboard</h3>
+                <p>Developed a real-time analytics dashboard for ERP data visualization.</p>
+                <a href="#">View Project</a>
+            </div>
+            <div class="project">
+                <h3>ERP Dashboard</h3>
+                <p>Developed a real-time analytics dashboard for ERP data visualization.</p>
+                <a href="#">View Internship</a>
+            </div>
+        </div>
+        
+        <div id="contact" class="content-contact">
+            <h2>Feel free to reach out for inquiries or potential roles</h2>
+            <h2>Open to new opportunities and collaborations! If you're looking for a dedicated professional to bring value to your team or project, let’s connect.</h2>
+            <div class="contact">
+                <a href="mailto:murari.connect@gmail.com" target="_blank">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mahendra-srinivas-murari-76b257226" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/mahi._.murari/#" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
