@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahendra Murari | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Mahendra Murari | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         @font-face {
@@ -71,30 +71,30 @@
         }
 
         nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: .9rem 3rem;
-            background: rgba(255, 255, 255, 0.233);
-            color: white;
-            font-family: "Title";
-            position: fixed;
-            top: 0px;
-            left: 49.45%;
-            transform: translateX(-50%);
-            border-radius: 0;
-            backdrop-filter: blur(20px);
-            border-width: 1px;
-            border-style: solid;
-            border-color: #f5f5f5a9;
-            width: 100%;
-            max-width: 1520px;
-            box-shadow: 0 0 10px rgba(201, 201, 201, 0.2), 
-                        0 0 20px rgba(148, 148, 148, 0.4),
-                        inset 0 0 10px rgba(255, 255, 255, 0.1);
-            transition: all 0.5s ease, box-shadow 0.3s ease;
-            z-index: 9999;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .9rem 3rem;
+    background: rgba(255, 255, 255, 0.233);
+    color: white;
+    font-family: "Title";
+    position: fixed;
+    top: 0px;
+    left: 0; /* Align to the left edge */
+    width: calc(100vw - (100vw - 100%)); /* Adjust for scrollbar width */
+    max-width: 99%; /* Remove max-width restriction */
+    border-radius: 0;
+    backdrop-filter: blur(20px);
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f5f5f5a9;
+    box-shadow: 0 0 10px rgba(201, 201, 201, 0.2), 
+                0 0 20px rgba(148, 148, 148, 0.4),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+    transition: all 0.5s ease, box-shadow 0.3s ease;
+    z-index: 9999;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
 
         nav:hover {
             background: rgba(255, 255, 255, 0.3);
@@ -138,6 +138,75 @@
             transform: translateY(2px);
             box-shadow: none;
         }
+        /* Mobile Styles */
+/* Hide the checkbox */
+/* Hide the checkbox */
+.menu-toggle {
+    display: none;
+}
+
+/* Hamburger Menu Icon */
+.hamburger {
+    display: none; /* Hide by default */
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    right: 1rem;
+    transform: translateY(-50%); /* Adjust for perfect centering */
+    z-index: 10000;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Show the hamburger menu */
+    .hamburger {
+        display: block;
+    }
+
+    /* Hide the navbar items by default */
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: black; /* Black background for dropdown */
+        backdrop-filter: blur(20px);
+        border-radius: 0 0 10px 10px;
+        padding: 1rem 0;
+        position: absolute;
+        top: 100%; /* Position below the navbar */
+        left: 0;
+        z-index: 9999;
+    }
+
+    /* Show the navbar items when the checkbox is checked */
+    .menu-toggle:checked ~ ul {
+        display: flex;
+    }
+
+    /* Adjust navbar for mobile */
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 1rem;
+    }
+
+    nav h1 {
+        font-size: 1.25rem; /* Reduce logo/heading size */
+    }
+
+    nav ul li a {
+        font-size: 0.9rem; /* Reduce font size of menu items */
+        padding: 8px 12px; /* Reduce padding for menu items */
+        color: white; /* White text for dropdown */
+    }
+
+    nav ul li a i {
+        font-size: 0.9rem; /* Reduce size of icons */
+        color: white; /* White icons for dropdown */
+    }
+}
 
         .project a, .contact a, .contact-button {
             background-color: #494949;
@@ -217,7 +286,7 @@ html, body {
 
 /* Adjustments for tablets */
 @media (max-width: 768px) {
-    .content-home, .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+    .content-about, .content-education, .content-skills, .content-projects, .content-contact {
         width: 95%; /* Increase width for smaller screens */
         padding: 1.5rem; /* Reduce padding for smaller screens */
         font-size: 0.95rem; /* Slightly reduce font size for tablets */
@@ -225,19 +294,19 @@ html, body {
     }
 
     /* Headings inside sections for tablets */
-    .content-home h2, .content-about h2, .content-education h2, .content-skills h2, .content-projects h2, .content-contact h2 {
+    .content-about h2, .content-education h2, .content-skills h2, .content-projects h2, .content-contact h2 {
         font-size: 1.75rem; /* Reduce heading size for tablets */
     }
 
     /* Paragraphs inside sections for tablets */
-    .content-home p, .content-about p, .content-education p, .content-skills p, .content-projects p, .content-contact p {
+    .content-about p, .content-education p, .content-skills p, .content-projects p, .content-contact p {
         font-size: 0.95rem; /* Reduce paragraph size for tablets */
     }
 }
 
 /* Adjustments for mobile devices */
 @media (max-width: 480px) {
-    .content-home, .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+    .content-about, .content-education, .content-skills, .content-projects, .content-contact {
         width: 100%; /* Full width on mobile */
         padding: 1rem; /* Reduce padding for mobile */
         top: 8vh; /* Adjust top position for mobile */
@@ -246,28 +315,119 @@ html, body {
     }
 
     /* Headings inside sections for mobile */
-    .content-home h2, .content-about h2, .content-education h2, .content-skills h2, .content-projects h2, .content-contact h2 {
+    .content-about h2, .content-education h2, .content-skills h2, .content-projects h2, .content-contact h2 {
         font-size: 1.5rem; /* Reduce heading size for mobile */
     }
 
     /* Paragraphs inside sections for mobile */
-    .content-home p, .content-about p, .content-education p, .content-skills p, .content-projects p, .content-contact p {
+    .content-about p, .content-education p, .content-skills p, .content-projects p, .content-contact p {
         font-size: 0.9rem; /* Reduce paragraph size for mobile */
     }
 }
 
 /* Specific adjustments for the home section on mobile devices */
+/* Existing Media Queries (No Changes) */
+@media (max-width: 768px) {
+    .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+        width: 95%; /* Increase width for smaller screens */
+        padding: 1.5rem; /* Reduce padding for smaller screens */
+        font-size: 0.95rem; /* Slightly reduce font size for tablets */
+        top: 10vh; /* Adjust top position for tablets */
+        left: auto;
+    }
+
+    .content-about h2, .content-education h2, .content-skills h2, .content-projects h2, .content-contact h2 {
+        font-size: 1.75rem; /* Reduce heading size for tablets */
+    }
+
+    .content-about p, .content-education p, .content-skills p, .content-projects p, .content-contact p {
+        font-size: 0.95rem; /* Reduce paragraph size for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .content-about, .content-education, .content-skills, .content-projects, .content-contact {
+        width: 100%; /* Full width on mobile */
+        padding: 1rem; /* Reduce padding for mobile */
+        top: 8vh; /* Adjust top position for mobile */
+        text-align: center; /* Center text for better readability */
+        font-size: 0.9rem; /* Further reduce font size for mobile */
+    }
+
+    .content-about h2, .content-education h2, .content-skills h2, .content-projects h2, .content-contact h2 {
+        font-size: 1.5rem; /* Reduce heading size for mobile */
+    }
+
+    .content-about p, .content-education p, .content-skills p, .content-projects p, .content-contact p {
+        font-size: 0.9rem; /* Reduce paragraph size for mobile */
+    }
+}
+
+/* New Media Queries for .content-home */
+@media (max-width: 768px) {
+    .content-home {
+        width: 100%; /* Full width for home section */
+        padding: 2rem; /* Adjust padding for home section */
+        font-size: 1rem; /* Adjust font size for home section */
+        top: 15vh; /* Adjust top position for home section *//
+    }
+    .content-home .home-content {
+        position: static; /* Reset absolute positioning */
+        top: 200px;
+        transform: none;
+        width: 100%; /* Full width */
+        text-align: center; /* Center text */
+        text-size-adjust: 70%;
+   }
+
+    .content-home h2 {
+        font-size: 2rem; /* Adjust heading size for home section */
+    }
+
+    .content-home p {
+        font-size: 1rem; /* Adjust paragraph size for home section */
+    }
+    .project{
+        left: -10%;
+    }
+}
+
 @media (max-width: 480px) {
     .content-home {
-        padding-top: 4rem; /* Add extra padding at the top to avoid navbar overlap */
-        margin-top: 2rem; /* Add margin to push content down */
-        width: 90%; /* Reduce width slightly to avoid edge-to-edge content */
-        left: 5%; /* Center the content horizontally */
-        right: 5%; /* Center the content horizontally */
+        width: 100%; /* Full width for home section */
+        padding: 1.5rem; /* Adjust padding for home section */
+        font-size: 0.95rem; /* Adjust font size for home section */
+        top: 10vh; /* Adjust top position for home section */
+        text-align: center; /* Center text for home section */
+    }
+
+    .content-home h2 {
+        font-size: 1.75rem; /* Adjust heading size for home section */
+    }
+
+    .content-home p {
+        font-size: 0.95rem; /* Adjust paragraph size for home section */
     }
 } 
-        
-        
+
+/* Default styles for the "Contact for inquiries" section */
+.home-content .home {
+    margin: 0 auto;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    backdrop-filter: blur(10px);
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* Media query for mobile devices (480px and below) */
+@media (max-width: 480px) {
+    /* Move the "Contact for inquiries" section down */
+    .home-content[style*="top: 1200px"] {
+        top: 1100px; /* Adjust this value to move it further down */
+    }
+}
         /* Container for the education section */
 .content-education {
     display: flex;
@@ -286,11 +446,13 @@ html, body {
     z-index: 10; /* Ensure it stays above other content */
 }
 
+
 /* Adjustments for smaller screens */
 @media (max-width: 768px) {
     .content-education {
         width: 95%; /* Increase width for smaller screens */
         padding: 1.5rem; /* Adjust padding for smaller screens */
+        position: absolute;
     }
 }
 
@@ -308,10 +470,7 @@ html, body {
             backdrop-filter: none;
 
         }
-        .content-projects {
-            position: fixed;
-            left: auto;
-        }
+        
         
         @media (max-width: 768px) {
   nav {
@@ -319,6 +478,9 @@ html, body {
     padding: 0.5rem; /* Reduce padding for smaller screens */
     border-radius: 15px; /* Slightly smaller border radius */
     align-items: center; /* Center items horizontally */
+    width: 70%;
+    top: 20px;
+    left: auto;
   }
 
   nav ul {
@@ -466,6 +628,7 @@ html, body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
 }
+
 
 /* Responsive Design for Mobile */
 @media (max-width: 768px) {
@@ -624,9 +787,45 @@ html, body {
     opacity: 0;
   }
 }    
+@media (max-width: 768px) {
+    .content-projects {
+            position: absolute;
+            left: auto;
+        }
+    }
+    @media (max-width: 768px) {
+    .projects-container {
+            position: absolute;
+            left: auto;
+            top: 200px;
+        }
+        @media (max-width: 768px) {
+    .form{
+            position: absolute;
+            left: auto;
+            top: 500px;
+        }
+    }
 </style>
     <script>
-        
+        // Wait for the DOM to load
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get all nav links
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        // Get the checkbox (hamburger menu toggle)
+        const menuToggle = document.getElementById('menu-toggle');
+
+        // Add click event listeners to all nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Uncheck the checkbox to close the dropdown
+                if (menuToggle.checked) {
+                    menuToggle.checked = false;
+                }
+            });
+        });
+    });
         document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('nav ul li a');
 
@@ -772,87 +971,95 @@ window.addEventListener('scroll', () => {
     
     <div class="content">
         <nav>
+            <!-- Hamburger Menu Button -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">&#9776;</label>
+        
+            <!-- Your Existing Navbar Content -->
             <h1>MM.</h1>
             <ul>
                 <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
                 <li><a href="#skills"><i class="fas fa-lightbulb"></i> Skills</a></li>
                 <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                <li><a href="#contact"><i class="fas fa-file-alt"></i> Resume</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
         </nav>  
-        
         <div id="home" class="content-home">
             <!-- Existing Content -->
-            <div class="home-content" style="position: absolute; left: -20%; top: 100%;">
+            <div class="home-content" style="position: absolute; left: -10%; top: -10px;">
                 <h2>Hello! Welcome to my portfolio</h2>
             </div>
-            <div class="home-content" style="position: absolute; left: -20%; top: 142px;">
+            <div class="home-content" style="position: absolute; left: -10%; top: 50px;">
                 <h2>I'm Mahendra Murari</h2>
             </div>
-            <div class="home-content" style="position: absolute; left: -20%; top: 220px;">
-                <h2 class="animated-text delay-1">Frontend Developer</h2>
+            <div class="home-content" style="position: absolute; left: -10%; top: 110px;">
+                <h2 class="animated-text delay-1">Data Enthusiast</h2>
             </div>
-            <div class="home-content" style="position: absolute; left: -20%; top: 220px;">
-                <h2 class="animated-text delay-2">UI/UX Enthusiast</h2>
+            <div class="home-content" style="position: absolute; left: -10%; top: 110px;">
+                <h2 class="animated-text delay-2">UI/UX Designer</h2>
             </div>
-            <div class="home-content" style="position: absolute; left: -20%; top: 220px;">
-                <h2 class="animated-text delay-3">Free Lancer</h2>
+            <div class="home-content" style="position: absolute; left: -10%; top: 110px;">
+                <h2 class="animated-text delay-3">Frontend Developer</h2>
             </div>
-            <div class="home-content" style="position: absolute; left: -20%; top: 220px;">
-                <h2 class="animated-text delay-4">Open Source Contributor</h2>
+            <div class="home-content" style="position: absolute; left: -10%; top: 110px;">
+                <h2 class="animated-text delay-4">Free Lancer</h2>
             </div>
         
             <!-- New Content -->
-            <div class="home-content" style="position: absolute; left: 45%; top: 150px; max-width: 1000px; color: white;">
+            <div class="home-content" style="position: absolute; left: 0%; top: 220px; max-width: 1000px; color: white;">
                 <div class="projects-container">
                     <div class="project">
                     <h3 style="color: white;">Let Me Introduce Myself</h3>
                     <p>Hi, I’m Mahendra, a Master’s graduate in Computer Science and front-end enthusiast with an unwavering passion for design and development. I specialize in designing and building visually stunning, responsive, and user-friendly web pages.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="home-content" style="position: absolute; left: auto; top: 450px; max-width: 900px;">
-                <div class="projects-container">
-                    <div class="project">
-                <h3 style="color: white;">What I do:</h3>
-                <ul>
+                    <h3 style="color: white;">What I do:</h3>
+                    <ul>
                     <p><strong>Mastery in Modern Front-End Tech:</strong> Proficient in JavaScript, React.js, and core CSS, I create dynamic, high-performance web applications.</p>
                     <p><strong>Pixel-Perfect Designs:</strong> From wireframes to live sites, I ensure every element is visually appealing and functionally flawless.</p>
                     <p><strong>Responsive & Accessible:</strong> I build websites that work seamlessly across devices and are inclusive for all users.</p>
                 </ul>
-                </div>
+                    </div>
                 </div>
             </div>
-            <div class="home-content" style="position: absolute; left: 40%; top: 1550px;">
+            <div class="home-content" style="position: absolute; left: 0%; top: 1650px;">
                 <h1>FIND ME ON</h1>
                 <p style="position: relative;">Feel free to reach-out.</p>
             </div>
-            <div class="home-content" style="position: absolute; left: 34%; top: 1650px;">                
-                <!-- Social Media Links -->
-                <div class="project" style="max-width: 1200px;left: 30%;">
-                    <!-- Gmail -->
-                    <a href="mailto:murari.connect@gmail.com" target="_blank" title="gmail">
-                        <i class="fas fa-envelope" style="font-size: 24px;"></i>
-                  </a>
-                  
-                  <!-- LinkedIn -->
-                  <a href="https://www.linkedin.com/in/mahendra-srinivas-murari-76b257226" target="_blank" title="linkedin">
-                    <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                  </a>
-                  
-                  <!-- Instagram -->
-                  <a href="https://www.instagram.com/mahi._.murari" target="_blank" title="instagram">
-                    <i class="fab fa-instagram" style="font-size: 24px;"></i>
-                  </a>
-                  
-                  <!-- GitHub -->
-                  <a href="https://github.com/MahendraMurari" target="_blank" title="GitHub">
-                    <i class="fab fa-github" style="font-size: 24px;"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="home-content" style="position: absolute; left: -1%; top: 850px; width: 100%; height: 500px; display: flex; justify-content: center;">
+            <div class="home-content" style="position: absolute; left: 0%; top: 1750px;">
+    <!-- Social Media Links -->
+    <!-- Gmail -->
+    <a href="mailto:murari.connect@gmail.com" target="_blank" title="gmail"
+       style="color: #fff; margin: 0 10px; text-decoration: none; transition: all 0.3s ease;"
+       onmouseover="this.style.textShadow='0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)'; this.style.transform='scale(1.1)';"
+       onmouseout="this.style.textShadow='none'; this.style.transform='scale(1)';">
+        <i class="fas fa-envelope" style="font-size: 24px;"></i>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/mahendra-srinivas-murari-76b257226" target="_blank" title="linkedin"
+       style="color: #fff; margin: 0 10px; text-decoration: none; transition: all 0.3s ease;"
+       onmouseover="this.style.textShadow='0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)'; this.style.transform='scale(1.1)';"
+       onmouseout="this.style.textShadow='none'; this.style.transform='scale(1)';">
+        <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/mahi._.murari" target="_blank" title="instagram"
+       style="color: #fff; margin: 0 10px; text-decoration: none; transition: all 0.3s ease;"
+       onmouseover="this.style.textShadow='0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)'; this.style.transform='scale(1.1)';"
+       onmouseout="this.style.textShadow='none'; this.style.transform='scale(1)';">
+        <i class="fab fa-instagram" style="font-size: 24px;"></i>
+    </a>
+
+    <!-- GitHub -->
+    <a href="https://github.com/MahendraMurari" target="_blank" title="GitHub"
+       style="color: #fff; margin: 0 10px; text-decoration: none; transition: all 0.3s ease;"
+       onmouseover="this.style.textShadow='0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)'; this.style.transform='scale(1.1)';"
+       onmouseout="this.style.textShadow='none'; this.style.transform='scale(1)';">
+        <i class="fab fa-github" style="font-size: 24px;"></i>
+    </a>
+</div>
+              <div class="home-content" style="position: absolute; left: -1%; top: 900px; width: 100%; height: 500px; display: flex; justify-content: center;">
                 <div class="home" style="margin: 0 auto; padding: 5px; background: rgba(0, 0, 0, 0.1); border-radius: 40px; backdrop-filter: blur(10px); max-width: 1000px; width: 100%;">
                   <h1 style="text-align: center;">Contact for inquiries</h1>
                   <form action="https://formspree.io/f/xblgrjww" method="POST" style="
@@ -922,8 +1129,7 @@ window.addEventListener('scroll', () => {
                 <h3 style="color: white;">University of Bridgeport, CT, USA </h3>
                 <h4>Master of Science in Computer Science</h4>
                 <p>
-                    <strong>Relevant Coursework:</strong> Web-based Application Development, Analysis of Algorithms, Python for Data Science, Object-Oriented Programming with Design Patterns, Deep Learning, Natural Language Processing (NLP), and Ethical Hacking.
-                </p>
+                    <strong>Relevant Coursework:</strong> Python for Data Science, Deep Learning, NLP, Ethical Hacking, Analysis of Algorithms, OOP With Design Patterns</p>
             </div>
         
             <br>
@@ -931,7 +1137,7 @@ window.addEventListener('scroll', () => {
             <div class="project"> <!-- Reuse the project class -->
                 <h3 style="color: white;">Gudlavalleru Engineering College, Andhra Pradesh, India </h3>
                 <h4>Bachelor of Technology in Computer Science and Engineering</h4>
-                <p><strong>Relevant Coursework: </strong>Web Technologies, Computer Graphics, C, Python, Data Structures, OOP Through Java, DBMS, Data Mining, Project Management</p>
+                <p><strong>Relevant Coursework: </strong>Data Mining, Data Structures, Python, DBMS, C, OOP Through Java, Computer Graphics, Project Management</p>
             </div>
         </div>
         
@@ -941,25 +1147,28 @@ window.addEventListener('scroll', () => {
                 <div class="project" style="margin-bottom: 20px;"> 
                     <h3 style="color: white;">Technical Skills</h3>
                     <div class="skills-sub-box" style="padding: 15px; border-radius: 10px;">
-                        <p><strong>Languages:</strong> HTML5, CSS3, JavaScript (ES6+)</p>
-                        <p><strong>Frameworks & Libraries:</strong> React.js</p>
-                        <p><strong>Styling:</strong> CSS Flexbox, Bootstrap, Tailwind CSS</p>
-                        <p><strong>Responsive Design:</strong> Media queries, mobile-first development</p>
-                        <p><strong>Version Control:</strong> Git and GitHub (commits, branching, pull requests)</p>
-                        <p><strong>APIs:</strong> Understanding of RESTful APIs and fetching data</p>
-                        <p><strong>Debugging:</strong> Browser Developer Tools</p>
-                        <p><strong>Basic Testing:</strong> Familiarity with testing concepts</p>
+                        <p><strong>Languages : </strong>Python, SQL, Java, HTML5, CSS3, JavaScript (ES6+)</p>
+                        <p><strong>Database Management Systems : </strong>Microsoft SQL Server, MySQL</p>
+                        <p><strong>Analysis & Visualization Tools : </strong>Microsoft Excel, Power BI, Tableau, Panda</p>
+                        <p><strong>Other Tools : </strong>PyTorch,  Gradio, NumPy, Matplotlib, TensorFlow, </p>
+                        <p><strong>Frameworks & Libraries : </strong> React.js</p>
+                        <p><strong>Styling : </strong> CSS Flexbox, Bootstrap, Tailwind CSS</p>
+                        <p><strong>Responsive Design : </strong> Media queries, mobile-first development</p>
+                        <p><strong>Version Control : </strong> Git and GitHub (commits, branching, pull requests)</p>
+                        <p><strong>APIs : </strong> Understanding of RESTful APIs and fetching data</p>
+                        <p><strong>Debugging : </strong> Browser Developer Tools</p>
+                        <p><strong>Basic Testing : </strong> Familiarity with testing concepts</p>
                     </div>
                 </div>
                 
                 <div class="project" style="margin-bottom: 20px;">
                     <h3 style="color: white;">UI/UX Development</h3>
                     <div class="skills-sub-box" style="padding: 15px; border-radius: 10px;">
-                        <p><strong>Design Tools:</strong> Figma (or Adobe XD/Sketch for wireframing and prototyping)</p>
-                        <p><strong>Wireframing:</strong> Creating basic layouts and user flows</p>
-                        <p><strong>Prototyping:</strong> Building interactive prototypes for user feedback</p>
-                        <p><strong>Design Principles:</strong> Understanding of typography, color theory, and visual hierarchy</p>
-                        <p><strong>User Research:</strong> Basic knowledge of user personas and usability testing</p>
+                        <p><strong>Design Tools : </strong> Figma (or Adobe XD/Sketch for wireframing and prototyping)</p>
+                        <p><strong>Wireframing : </strong> Creating basic layouts and user flows</p>
+                        <p><strong>Prototyping : </strong> Building interactive prototypes for user feedback</p>
+                        <p><strong>Design Principles : </strong> Understanding of typography, color theory, and visual hierarchy</p>
+                        <p><strong>User Research : </strong> Basic knowledge of user personas and usability testing</p>
                     </div>
                 </div>
         
@@ -978,9 +1187,9 @@ window.addEventListener('scroll', () => {
                 <div class="project" style="margin-bottom: 20px;">
                     <h3 style="color: white;">Tools & Technologies</h3>
                     <div class="skills-sub-box" style="padding: 15px; border-radius: 10px;">
-                        <p><strong>Code Editors:</strong> VS Code, Sublime Text</p>
-                        <p><strong>Version Control:</strong> Git, GitHub</p>
-                        <p><strong>Design Tools:</strong> Figma, Adobe XD, Canva (for basic designs)</p>
+                        <p><strong>Code Editors : </strong> VS Code, Sublime Text</p>
+                        <p><strong>Version Control : </strong> Git, GitHub</p>
+                        <p><strong>Design Tools : </strong> Figma, Adobe XD, Canva (for basic designs)</p>
                     </div>
                 </div>
         
@@ -1013,7 +1222,7 @@ window.addEventListener('scroll', () => {
                     <h3 style="color: white;">Internship</h3>
                     <p>Java Full Stack Development - wipro</p>
                     </p>
-                    <a href="https://doc-10-b8-prod-03-apps-viewer.googleusercontent.com/viewer2/prod-03/pdf/170kr1cg67u4904v5l3mgh7aua8gilgf/olmbfpvpghoh75v542uatbsmcqnlfam3/1741234350000/3/108425330702108105452/APznzaai7rGX8Brp5T9zU-PgvMqc91Aeus-3jXMHE0x9PpuXs0tyfrTIRTySfeUTBW7WYGaJQemaRtcFVITCVmhTBuZ3d9Jbj3hUvY_Uy0YUlV6zln8E44nt5D4bY2QF_HyStRESofWymdn28BBi-Z5eydtcIwFWmjcBlYMsuey2at3GS-IEs5Cpoytd0gFZUaZtPvZDanVp77VPajUMk4FZdrHeq4mk_oRBNUummS4Hu_M0BHmqcbPDU30ReXUqcz14Pi5mn-hfUDht1193iB6FrZ2YHzKhsc9nUIQU1TQHgCM4OeaCRoVpgN1r3E53kTxFqLZRIc1eAVzigpyWNFrlBfzDqvNZaycN37ht80xpFv8TXqeZ5cr9ee0RcNUctCILIfhAXPVMLG65Qp2XyfnzKvvsyoHCdff1LuZRXRXdn4I2vKUiMwsDTrYRXlGXVCO4JWiM34DvWNUrvW0mVZSQJxLGt1Zyk7E0V9jFgPJ5-TXOuOAEcmHxCHTBpxGQ-5A05m55LwtoT_61SOtozIgZX78IEobYvYofOtBhQkSbJ3t_85TiLHoo6j2QYk8yKpTmBIo269ROSDdHmaXknK2bh0M9B6n5mz6n93FztHgCgx6mddFJyq7wvjUvOxHUmbLK8bbwvzkkCZBNpUTGgPM02hOd-_U9riQauP1273rw6F_c8FUw146fM1ctYjwdACR6l7gNKnf7aSYyeyMW1xyFuug-3tvcRJLJYvdPXAWVkVnRny1RL8-pnczkgqfbOfTJAcCx4gh981qI-1lC6pSYE8bsn2CdrnncUnvUd0oLO32c1Lc1AFu7AN9VRamWWP1xTrfGCQglvK_LHN-Rpce8hTJGKfG4S7_dHG0hUYvQXF_4hpODaONy5zv9Jtvp08OL1w5ILcayXOZDduxrq0HQmHIrI9X0v5mjnXeUc-b31Rv7GLOYBn_o-zf-BKvDdvIpGJXt71zqR6z5HlaOcO7NyQPnpN59hLeEbFXOdTX65bnqVWJ301T4lnYGGCk403gwADIidmqTrzQt3gCpMhLaVqPVUtoUtDWm0lix3G6-7j29Hiy-3BExaeuR8Rc7RpAeTK_IZIumgY7WohpbiDhm0op9pIThw12xP_H3nZHa3nclfC_dYHnGkULWhRNSbzpjnQZ3jlWOI7YLHca0J1rBHz-RWrd-DkWBSY3gZG-KuA8GL09B6Vw8s_1KQ4MbFNYfJOgXxAR9By2iTb65CrDBWL3ZekZvvyQz4fknuBxSMOTlqU_vNKJ0Zyww0EAZiLfLT_ECEmhOOjhAUwdBmCJo-NlzGkBKUgwL70yN8xxjhfcbxBNsfGwx7zZzR847yCFH8qwKUAugBV9oyRK12ohzVc1_GYSIQ8KObb6l78SbgB-3RAd39auU61jNIueH1S6f0YLHdMO9azvuQQjYv2fAPUN1B-Hi2JYul_BZFZGq0PLZNT7oBbbnDkq6-bqO6296Z7wzfhF8V3ZnTz2J9I871RI6er_gasaPi6urTrWLYQJdZvlFr5Esn82v6Ev_YML-avVNxSuKRKx2ww3iAAVhxg7FYN3xClD5c73luGUAQqFP_G6TBPEAQrB0S_nqR2vk_ZEUyOAnCTbpzAD-yQWn0r5wX6Xhelushx-UmwSys42RgLt7c87xgAMtGRSHWJN-ZhjmipTzXS2lp7Oh7VPEcu7_uI4zJe7CeT1JgHjrdNU7_Yadr8JTg9cP6zeJzVCSJDxMpwxa8KfHAIslfwi_Lvk1xT_uogFZKPI2UkOIaR-Q5t6nwjvY8CmyiC1FAT0aCgaraA-_LG6Y3ShuR2UkcW0I0qUXnavDJHw7KZzwPxoz3xEFr8D2HLovPsdxDAhWXhLWYN9GThmjocYT3NstA2yCGnmHBfZNPSdaknYPP5AB2qpu5Jb1qfPFX6HK5oyRa0abK4lBSU1hLNq0X3m6s6uePTRSeL66nbNN1Np81geJ2z1hsaMGFD7d3hbdczYUYhH0gJ0TunN-wfxA5MtBj3gnC1MoI0NUcoMVMSSZqZMkRbgoehzhr1P9BcQjNCWU0jgNzigy?authuser=0&nonce=u6e5ch06sntqs&user=108425330702108105452&hash=vd20t2ivvvt84uo2o812stb92mtsv6pb" target="_blank">View Project</a>
+                    <a href="https://drive.google.com/file/d/1uN338K_u8zqVCLZ1lsvAy3ZI9UpINzZX/view?usp=sharing" target="_blank">View Project</a>
                 </div>
                 <div class="project">
                     <h3 style="color: white;">Personal Project</h3>
@@ -1024,8 +1233,8 @@ window.addEventListener('scroll', () => {
         </div>
         
         
-        <div id="contact" class="content-projects" title="resume">
-            <div class="project" style="max-width: 900px;">
+        <div id="contact" class="content-projects" title="Contact">
+            <div class="project" style="max-width: 900px; ">
             <h3 style="color: white;">Feel free to reach out for inquiries or potential roles</h3>
             <h4>Open to new opportunities and collaborations! If you're looking for a dedicated professional to bring value to your team or project, let’s connect.</h4>
                 <a href="mailto:murari.connect@gmail.com" target="_blank" title="gmail">
@@ -1042,9 +1251,6 @@ window.addEventListener('scroll', () => {
                 </a>
             </div>
         </div>
-        <div id="contact" class="content-projects" title="resume">
-            <a href="Mahendra_Murari_Resume.pdf" target="_blank">View Resume</a>
-    </div>
     </div>
 </body>
 </html>
