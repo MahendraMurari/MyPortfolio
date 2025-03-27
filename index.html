@@ -165,6 +165,10 @@
         display: block;
     }
 
+    html, body {
+            background-color: #000000;
+        }
+
     /* Hide the navbar items by default */
     nav ul {
         display: none;
@@ -608,7 +612,12 @@ html, body {
     position: absolute;
     top: 1750px;
     left: 50%;
+    margin-bottom: 2px;
     transform: translateX(-50%);
+}
+
+@media screen {
+    
 }
 
 .relative-text {
@@ -1020,6 +1029,8 @@ html, body {
 @media (max-width: 768px) {
     .content-projects {
             position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
     }
     @media (max-width: 768px) {
@@ -1410,7 +1421,7 @@ window.addEventListener('scroll', () => {
         
         
         <div id="contact" class="content-projects" title="Contact">
-            <div class="project" style="max-width: 1200px; left: 20px; position: fixed;">
+            <div class="project" style="max-width: 900px; left: 220px; position: fixed;">
             <h3 style="color: white; font-size: medium;">Feel free to reach out for inquiries or potential roles</h3>
             <h4>Open to new opportunities and collaborations! If you're looking for a dedicated professional to bring value to your team or project, let’s connect.</h4>
                 <a href="mailto:murari.connect@gmail.com" target="_blank" title="gmail">
