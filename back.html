@@ -1512,202 +1512,104 @@ html, body {
 
 </style>
     <script>
-        // Wait for the DOM to load
-    document.addEventListener('DOMContentLoaded', () => {
-        // Get all nav links
-        const navLinks = document.querySelectorAll('nav ul li a');
-
-        // Get the checkbox (hamburger menu toggle)
-        const menuToggle = document.getElementById('menu-toggle');
-
-        // Add click event listeners to all nav links
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                // Uncheck the checkbox to close the dropdown
-                if (menuToggle.checked) {
-                    menuToggle.checked = false;
-                }
-            });
-        });
-    });
         document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('nav ul li a');
+            const body = document.body;
+            const navLinks = document.querySelectorAll('nav ul li a');
+            const allSections = document.querySelectorAll('.content > div, .content > section');
+            const menuToggle = document.getElementById('menu-toggle');
+            const homeVideo = document.querySelector('.home-video');
+            const otherVideo = document.querySelector('.other-video');
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sectionId = link.getAttribute('href').substring(1);
-            showSection(sectionId);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        });
-    });
+            // --- Function to Show/Hide Page Sections ---
+            function showSection(sectionId) {
+                // Hide all sections first
+                allSections.forEach(section => {
+                    section.style.opacity = '0';
+                    section.style.visibility = 'hidden';
+                    section.classList.remove('active'); // Use a class for display
+                });
 
-    showSection('home'); // Show home section by default
+                const selectedSection = document.getElementById(sectionId);
+                if (selectedSection) {
+                    selectedSection.style.opacity = '1';
+                    selectedSection.style.visibility = 'visible';
+                    selectedSection.classList.add('active');
+                }
 
-    window.addEventListener('scroll', handleScroll);
-});
+                // Manage video visibility
+                if (sectionId === 'home') {
+                    homeVideo.classList.add('video-visible');
+                    otherVideo.classList.remove('video-visible');
+                    if (homeVideo.paused) homeVideo.play().catch(e => console.log("Autoplay blocked"));
+                } else {
+                    homeVideo.classList.remove('video-visible');
+                    otherVideo.classList.add('video-visible');
+                    homeVideo.pause();
+                }
 
-// Get all links on the page
-const links = document.querySelectorAll('a');
+                // Add class to body for project-specific styles
+                if (sectionId === 'projects') {
+                    body.classList.add('page-projects');
+                } else {
+                    body.classList.remove('page-projects');
+                }
 
-// Add an event listener to each link
-links.forEach(link => {
-    link.addEventListener('click', (e) => {
-        // Prevent the default link behavior
-        e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
 
-        // Get the href attribute of the link
-        const href = link.getAttribute('href');
+            // --- Event Listeners for Navigation ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Prevent default anchor behavior only for section links
+                    if (link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const sectionId = link.getAttribute('href').substring(1);
+                        showSection(sectionId);
+                    }
+                    // Close mobile menu if open
+                    if (menuToggle && menuToggle.checked) {
+                        menuToggle.checked = false;
+                    }
+                });
+            });
 
-        // Use the history API to push a new state
-        history.pushState({}, '', href);
+            // --- Automatic Scroll to Top Function ---
+            function scrollToTop() {
+                const content = document.querySelector('.content');
+                if (content) {
+                    content.classList.add('fade-out');
 
-        // Load the new page
-        loadPage(href);
-    });
-});
-// Set scrollRestoration to 'manual' to prevent the browser from restoring the scroll position
-window.history.scrollRestoration = 'manual';
-// Function to load a new page
-function loadPage(href) {
-    // Use the fetch API to load the new page
-    fetch(href)
-        .then(response => response.text())
-        .then(html => {
-            // Replace the current page content with the new page content
-            document.body.innerHTML = html;
+                    setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        content.classList.remove('fade-out');
+                        content.classList.add('fade-in');
+                    }, 500);
 
-            // Scroll to the top of the new page
-            window.scrollTo(0, 0);
-        });
-}
+                    setTimeout(() => {
+                        content.classList.remove('fade-in');
+                    }, 1000);
+                }
+            }
 
-// --- JavaScript for Project Image Sliders ---
-            const sliders = document.querySelectorAll('.slider');
-sliders.forEach(slider => {
-    const slides = slider.querySelectorAll('.slide');
-    const prevBtn = slider.querySelector('.slider-btn.prev');
-    const nextBtn = slider.querySelector('.slider-btn.next');
-    let currentSlide = 0;
-
-    if (slides.length > 1 && prevBtn && nextBtn) {
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                if (i === index) {
-                    slide.classList.add('active');
+            // This listener will trigger the function whenever the user scrolls down
+            window.addEventListener('scroll', () => {
+                // This condition prevents the function from running on the 'projects' page,
+                // allowing users to scroll there.
+                if (window.scrollY > 0 && !document.body.classList.contains('page-projects')) {
+                    scrollToTop();
                 }
             });
-        }
-        prevBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        });
-        nextBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        });
+            
 
-        // Initialize the first slide
-        showSlide(currentSlide);
-    } // <-- FIX: Added the missing closing brace for the 'if' statement here
-});
-        function handleScroll() {
-            const homeSection = document.getElementById('home');
-            const scrollPosition = window.scrollY;
-            const maxTop = 100;
-            const maxWidth = 1200;
-
-            if (scrollPosition > 0) {
-                const calculatedTop = Math.max(maxTop, 500 - scrollPosition * 0.5);
-                const calculatedWidth = Math.min(maxWidth, 900 + scrollPosition * 1.5);
-                homeSection.style.top = `${calculatedTop}px`;
-                homeSection.style.maxWidth = `${calculatedWidth}px`;
-            } else {
-                homeSection.style.top = '500px';
-                homeSection.style.maxWidth = '900px';
-            }
-        }
-
-function showSection(sectionId) {
-    const sections = document.querySelectorAll('.content > div');
-    // Get a reference to the body element
-    const body = document.body; 
-
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.visibility = 'hidden';
-    });
-
-    const selectedSection = document.getElementById(sectionId);
-    if (selectedSection) {
-        selectedSection.style.opacity = '1';
-        selectedSection.style.visibility = 'visible';
-    }
-
-    const homeVideo = document.querySelector('.home-video');
-    const otherVideo = document.querySelector('.other-video');
-
-    if (sectionId === 'home') {
-        homeVideo.classList.add('video-visible');
-        otherVideo.classList.remove('video-visible');
-        homeVideo.play();
-    } else {
-        homeVideo.classList.remove('video-visible');
-        otherVideo.classList.add('video-visible');
-        homeVideo.pause();
-    }
-
-    // Check if the projects section is the one being shown
-    // and add or remove the class accordingly
-    if (sectionId === 'projects') {
-        body.classList.add('page-projects');
-    } else {
-        body.classList.remove('page-projects');
-    }
-
-    // Add this line to scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-        window.addEventListener('load', () => {
-            const body = document.body;
-            body.style.opacity = '1';
-
-            const homeVideo = document.querySelector('.home-video');
-            homeVideo.play();
-        });
-        // Function to scroll back to top
-        function scrollToTop() {
-    const content = document.querySelector('.content');
-    content.classList.add('fade-out'); // Fade out the content
-
-    setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        content.classList.remove('fade-out'); // Fade in the content after scrolling
-        content.classList.add('fade-in');
-    }, 500); // Match the duration of the fade-out transition
-
-    setTimeout(() => {
-        content.classList.remove('fade-in'); // Remove the fade-in class after the transition
-    }, 1000); // Match the duration of the fade-in transition
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-        // --- 1. DEFINE ALL YOUR FUNCTIONS HERE ---
-
-        // Function to set up the image sliders
-        function initializeSliders() {
+            // --- JavaScript for Project Image Sliders ---
             const sliders = document.querySelectorAll('.slider');
-
             sliders.forEach(slider => {
                 const slides = slider.querySelectorAll('.slide');
                 const prevBtn = slider.querySelector('.slider-btn.prev');
                 const nextBtn = slider.querySelector('.slider-btn.next');
                 let currentSlide = 0;
 
-                if (slides.length > 1 && prevBtn && nextBtn) {
-                    // This sub-function shows a specific slide
+                if (slides.length > 0 && prevBtn && nextBtn) {
                     function showSlide(index) {
                         slides.forEach((slide, i) => {
                             slide.classList.remove('active');
@@ -1716,38 +1618,22 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         });
                     }
-
-                    // Event listener for the 'previous' button
                     prevBtn.addEventListener('click', () => {
                         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
                         showSlide(currentSlide);
                     });
-
-                    // Event listener for the 'next' button
                     nextBtn.addEventListener('click', () => {
                         currentSlide = (currentSlide + 1) % slides.length;
                         showSlide(currentSlide);
                     });
-
-                    // Show the first slide when the page loads
-                    showSlide(currentSlide);
+                    showSlide(currentSlide); // Initialize slider
                 }
             });
-        }
-        
-        // (Your other functions like showSection, scrollToTop, etc., would be defined here)
 
-
-        // --- 2. RUN YOUR FUNCTIONS AFTER PAGE LOADS ---
-
-        // This line runs the function to activate your sliders
-        initializeSliders();
-
-        // (Your other startup calls like showSection('home') would go here)
-    });
-    
-
-
+            // --- Initial Page Load ---
+            showSection('home'); // Show home section by default
+            body.style.opacity = '1'; // Fade in the page
+        });
     </script>
 </head>
 <body>

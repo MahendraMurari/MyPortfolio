@@ -1029,156 +1029,102 @@ html, body {
     }
 </style>
     <script>
-        // Wait for the DOM to load
     document.addEventListener('DOMContentLoaded', () => {
-        // Get all nav links
+        const body = document.body;
         const navLinks = document.querySelectorAll('nav ul li a');
-
-        // Get the checkbox (hamburger menu toggle)
+        const allSections = document.querySelectorAll('.content > div, .content > section');
         const menuToggle = document.getElementById('menu-toggle');
+        const homeVideo = document.querySelector('.home-video');
+        const otherVideo = document.querySelector('.other-video');
 
-        // Add click event listeners to all nav links
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                // Uncheck the checkbox to close the dropdown
-                if (menuToggle.checked) {
-                    menuToggle.checked = false;
-                }
-            });
-        });
-    });
-        document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('nav ul li a');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sectionId = link.getAttribute('href').substring(1);
-            showSection(sectionId);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        });
-    });
-
-    showSection('home'); // Show home section by default
-
-    window.addEventListener('scroll', handleScroll);
-});
-
-// Get all links on the page
-const links = document.querySelectorAll('a');
-
-// Add an event listener to each link
-links.forEach(link => {
-    link.addEventListener('click', (e) => {
-        // Prevent the default link behavior
-        e.preventDefault();
-
-        // Get the href attribute of the link
-        const href = link.getAttribute('href');
-
-        // Use the history API to push a new state
-        history.pushState({}, '', href);
-
-        // Load the new page
-        loadPage(href);
-    });
-});
-// Set scrollRestoration to 'manual' to prevent the browser from restoring the scroll position
-window.history.scrollRestoration = 'manual';
-// Function to load a new page
-function loadPage(href) {
-    // Use the fetch API to load the new page
-    fetch(href)
-        .then(response => response.text())
-        .then(html => {
-            // Replace the current page content with the new page content
-            document.body.innerHTML = html;
-
-            // Scroll to the top of the new page
-            window.scrollTo(0, 0);
-        });
-}
-
-        function handleScroll() {
-            const homeSection = document.getElementById('home');
-            const scrollPosition = window.scrollY;
-            const maxTop = 100;
-            const maxWidth = 1200;
-
-            if (scrollPosition > 0) {
-                const calculatedTop = Math.max(maxTop, 500 - scrollPosition * 0.5);
-                const calculatedWidth = Math.min(maxWidth, 900 + scrollPosition * 1.5);
-                homeSection.style.top = `${calculatedTop}px`;
-                homeSection.style.maxWidth = `${calculatedWidth}px`;
-            } else {
-                homeSection.style.top = '500px';
-                homeSection.style.maxWidth = '900px';
-            }
-        }
-
+        // --- Function to Show/Hide Page Sections ---
         function showSection(sectionId) {
-            const sections = document.querySelectorAll('.content > div');
+            window.scrollTo(0, 0); // Reset scroll position on every navigation
 
-            sections.forEach(section => {
+            allSections.forEach(section => {
                 section.style.opacity = '0';
                 section.style.visibility = 'hidden';
+                section.classList.remove('active');
             });
 
             const selectedSection = document.getElementById(sectionId);
             if (selectedSection) {
                 selectedSection.style.opacity = '1';
                 selectedSection.style.visibility = 'visible';
+                selectedSection.classList.add('active');
             }
 
-            const homeVideo = document.querySelector('.home-video');
-            const otherVideo = document.querySelector('.other-video');
-
+            // Manage video visibility
             if (sectionId === 'home') {
                 homeVideo.classList.add('video-visible');
                 otherVideo.classList.remove('video-visible');
-                homeVideo.play();
+                if (homeVideo.paused) homeVideo.play().catch(e => console.log("Autoplay blocked"));
             } else {
                 homeVideo.classList.remove('video-visible');
                 otherVideo.classList.add('video-visible');
                 homeVideo.pause();
             }
 
-            // Add this line to scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Add class to body for project-specific styles
+            if (sectionId === 'projects') {
+                body.classList.add('page-projects');
+            } else {
+                body.classList.remove('page-projects');
+            }
         }
 
-        window.addEventListener('load', () => {
-            const body = document.body;
-            body.style.opacity = '1';
-
-            const homeVideo = document.querySelector('.home-video');
-            homeVideo.play();
+        // --- Event Listeners for Navigation ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('href').substring(1);
+                    showSection(sectionId);
+                }
+                if (menuToggle && menuToggle.checked) {
+                    menuToggle.checked = false;
+                }
+            });
         });
-        // Function to scroll back to top
-        function scrollToTop() {
-    const content = document.querySelector('.content');
-    content.classList.add('fade-out'); // Fade out the content
 
-    setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        content.classList.remove('fade-out'); // Fade in the content after scrolling
-        content.classList.add('fade-in');
-    }, 500); // Match the duration of the fade-out transition
+        // --- JavaScript for Project Image Sliders ---
+        const sliders = document.querySelectorAll('.slider');
+        sliders.forEach(slider => {
+            const slides = slider.querySelectorAll('.slide');
+            const prevBtn = slider.querySelector('.slider-btn.prev');
+            const nextBtn = slider.querySelector('.slider-btn.next');
+            let currentSlide = 0;
 
-    setTimeout(() => {
-        content.classList.remove('fade-in'); // Remove the fade-in class after the transition
-    }, 1000); // Match the duration of the fade-in transition
-}
+            if (slides.length > 0 && prevBtn && nextBtn) {
+                function showSlide(index) {
+                    slides.forEach((slide, i) => slide.classList.remove('active'));
+                    slides[index].classList.add('active');
+                }
+                prevBtn.addEventListener('click', () => {
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    showSlide(currentSlide);
+                });
+                nextBtn.addEventListener('click', () => {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                });
+                showSlide(currentSlide);
+            }
+        });
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 0) {
-        scrollToTop();
-    }
-});
+        // --- Automatic Scroll-to-Top (for Home page only) ---
+        const homeSection = document.getElementById('home');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0 && homeSection.classList.contains('active')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
 
-
-    </script>
+        // --- Initial Page Load ---
+        showSection('home');
+        body.style.opacity = '1';
+    });
+</script>
 </head>
 <body>
     <video loop muted class="background-video home-video video-visible">
